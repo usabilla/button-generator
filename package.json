@@ -14,10 +14,11 @@
   },
   "dependencies": {
     "eslint": "^3.12.1",
-    "js-styleguide": "git://github.com/usabilla/js-styleguide",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^3.1.0",
+    "js-styleguide": "git://github.com/usabilla/js-styleguide",
     "lodash": "^4.12.0",
+    "svg.js": "^2.3.6",
     "watch": "^1.0.1"
   },
   "license": "MIT"

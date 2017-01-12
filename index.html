@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Button generator</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<body>
+<div id="drawing"></div>
+<script src="node_modules/svg.js/dist/svg.js"></script>
+<script>
+
+    var draw = SVG('drawing').size(300, 300)
+    var rect = draw.rect(80, 260).attr({ fill: '#f06' })
+    var radius = rect.radius( 10, 10)
+    var text = draw.text(function(add) {
+        add.tspan('feedback').fill('#111')
+        add.font ({
+            family:   'Open Sans'
+            , size:     34
+            , anchor:   'middle'
+            , leading:  '1em'
+        })
+        add.move(40, 105)
+        add.rotate(270)
+    })
+
+</script>
+</body>
+</html>
