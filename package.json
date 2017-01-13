@@ -13,12 +13,14 @@
     "start": "node ."
   },
   "dependencies": {
+    "d3": "^4.4.1",
     "eslint": "^3.12.1",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^3.1.0",
     "js-styleguide": "git://github.com/usabilla/js-styleguide",
     "lodash": "^4.12.0",
     "parliament-svg": "^0.1.0",
+    "round-precision": "^1.0.0",
     "svg.js": "^2.3.6",
     "virtual-dom-stringify": "^3.0.1",
     "virtual-hyperscript-svg": "^2.0.0",
