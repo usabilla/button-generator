@@ -17,7 +17,10 @@ describe('ButtonGenerator', function() {
       this.buttonGenerator.generatePNG(SOURCE_SVG, BUILD_DIR)
         .then(() => {
           const files = fs.readdirSync(BUILD_DIR);
-          expect(path.parse(files[2]).ext).toBe('.png'); //TODO index need to be dynamic
+          let fileFound = files.find((file)=>{
+            return file === 'button.png'
+          });
+          expect(path.parse(fileFound).ext).toBe('.png');
           done();
         })
       .catch(done.fail);
