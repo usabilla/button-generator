@@ -1,23 +1,37 @@
 BUTTON GENERATOR
 ===
 
-This module permit to generate a button png based on parameter.
+This module permit to generate a button picture (png format) based on parameters.
 
 
 
-## Installation
+##Setup
+```
+yarn install
+```
 
 ## how to use it
-For generating a button we need these parameters :
+For generating a button 
 
 
-``` buttonGenerator(options)```
+``` 
+buttonGenerator.generate(options)
+```
 
-```options```  
-  - ``fontUrl`` : font url
-  - ``backgroundColor `` : a string representing a code hex of a color wanted for the background  
-  - ``textColor `` : a string representing a code hex of a color wanted for the text 
-  - ``contain `` : text
-  - ```size``` : object with width and height
+with options, an list of parameters. Example :
+```
+options = {
+  fontUrl : '//fonts.googleapis.com/css?family=Open+Sans'
+  backgroundColor : '#4286f4',
+  textColor:'#000000',
+  content: 'Feedback',
+  hasSoftCorner : true
+  size : {
+      width: 40,
+      height: 130
+   }
+}
+```
+  
 
-## Tests
+
