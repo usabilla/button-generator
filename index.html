@@ -3,34 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Button generator</title>
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 </head>
 <body>
-<img src="buttons/button.svg">
-<img src="buttons/button1.svg">
-<div id="drawing"></div>
-<svg xmlns="http://www.w3.org/2000/svg" width="40" height="130"><defs><style type="text/css">@import url(//fonts.googleapis.com/css?family=Sonsie+One); text {font-family:&quot;Sonsie One&quot;;}</style></defs><g><rect fill="red" width="40" height="130" radius="10" rx="10"></rect><text fill="black" x="50%" y="50%" font="Helvetica" font-size="35" text-anchor="middle" transform="rotate(270, 25, 60)"><tspan>Feedback</tspan></text></g></svg>
-
-<script src="node_modules/svg.js/dist/svg.js"></script>
-<script>
-
-    var draw = SVG('drawing').size(300, 300)
-    var rect = draw.rect(80, 260).attr({ fill: '#f06' })
-    var radius = rect.radius( 10, 10)
-    var text = draw.text(function(add) {
-        add.tspan('feedback').fill('#111')
-        add.font ({
-            family:   'Open Sans'
-            , size:     34
-            , anchor:   'middle'
-            , leading:  '1em'
-        })
-        add.move(40, 105)
-        add.rotate(270)
-    })
-
-    draw.svg()
-    console.log(draw);
-</script>
 </body>
 </html>
