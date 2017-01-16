@@ -1,9 +1,7 @@
 BUTTON GENERATOR
 ===
 
-This module permit to generate a button picture (png format) based on parameters.
-
-
+This module permit to generate a button image (png format) based on parameters.
 
 ##Setup
 ```
@@ -15,7 +13,7 @@ For generating a button
 
 
 ``` 
-buttonGenerator.generate(options)
+node index <fontURL> <backgroundColor> <textColor> <content> <hasSoftCorder> <width> <height>
 ```
 
 with options, an list of parameters. Example :
