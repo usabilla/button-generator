@@ -1,6 +1,6 @@
 module.exports = function() {
   return {
-    files: ['lib/**/*.js', 'test/_helpers/**/*'],
+    files: ['lib/**/*', 'test/_helpers/**/*'],
     tests: ['test/**/*.spec.js'],
     testFramework: 'jasmine',
     setup: function() {

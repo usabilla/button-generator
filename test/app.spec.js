@@ -1,14 +1,32 @@
-const App = require('../lib/app');
+const ButtonGenerator = require('../lib/app');
+const fs = require('fs-promise');
+const faker = require('faker');
+const path = require('path');
 
-describe('App', function() {
+describe('ButtonGenerator', function() {
+
   beforeEach(function() {
-    this.app = new App();
+    this.buttonGenerator = new ButtonGenerator();
+    this.directoryPath = './dest';
+    this.fileName = faker.system.fileName();
+    this.source = faker.image.imageUrl();
+    this.buffer = {};
+    spyOn(this.buttonGenerator, 'svg2png').and.returnValue(Promise.resolve(this.buffer));
+    spyOn(fs, 'readFile').and.returnValue(Promise.resolve(this.buffer));
+    spyOn(fs, 'writeFile').and.returnValue(Promise.resolve());
   });
 
-  describe('#foo', function() {
-    it('returns foo', function() {
-      expect(this.app.foo()).toBe('foo');
+  describe('#generatePNG', function() {
+
+    it('reads file, converts to png, and writes it', function(done) {
+      this.buttonGenerator.generatePNG(this.source, this.directoryPath, this.fileName)
+        .then(() => {
+          expect(fs.readFile).toHaveBeenCalledWith(this.source);
+          expect(this.buttonGenerator.svg2png).toHaveBeenCalledWith(this.buffer);
+          expect(fs.writeFile).toHaveBeenCalledWith(path.join(this.directoryPath, `${this.fileName}.png`),this.buffer);
+          done();
+        })
+        .catch(done.fail);
     });
   });
-
 });
