@@ -4,7 +4,7 @@ const ButtonGenerator= require('./lib/button-generator');
 if (process.argv.length != 9) {
   console.log('not enough arguments');
 } else {
-  let options = {
+  const options = {
     fontUrl: process.argv[2],
     backgroundColor: process.argv[3],
     textColor: process.argv[4],
