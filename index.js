@@ -8,8 +8,8 @@ const options = {
   textColor: '#fff',
   hasSoftCorner: false,
   width: 40,
-  height: 130
+  height: 130,
+  content:'katia feedback'
 };
-const content = 'Feedback';
 const button = new ButtonGenerator();
-button.generate(options,content);
+button.generate(options);
