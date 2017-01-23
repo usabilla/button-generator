@@ -16,9 +16,9 @@ For generating a button we require these properties :
  - A boolean value (true/false) for the corner of the button. If true 3px will be apply to each corner - `options.hasSoftCorner`
  - A number value for the width of the button - `options.width`
  - A number value for the height of the button - `options.height`
- - A string for the content text of the button - `content`
+ - A string for the content text of the button - `options.content`
  
- Then the method `generate(options,content)` will create a virtual dom tree and output the result in a svg file. Then, convert it as png file 
+ Then the method `generate(options)` will create a virtual dom tree and output the result in a svg file. Then, convert it as png file 
 ## Example
 ``` 
 const options = {
@@ -28,11 +28,11 @@ const options = {
   textColor: '#fff',
   hasSoftCorner: false,
   width: 40,
-  height: 130
+  height: 130,
+  content:'Feedback'
 };
-const content = 'Feedback';
 const button = new ButtonGenerator();
-button.generate(options,content)
+button.generate(options)
 ```
 ## Output
 The generate method will produce two files :
