@@ -6,10 +6,10 @@ const options = {
   fontName: 'Open Sans',
   backgroundColor: '#000000',
   textColor: '#fff',
-  hasSoftCorner: false,
+  hasSoftCorner: true,
   width: 40,
   height: 130,
-  content:'katia feedback'
+  content:'Feedback'
 };
 const button = new ButtonGenerator();
 button.generate(options);
