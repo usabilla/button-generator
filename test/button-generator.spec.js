@@ -6,27 +6,39 @@ const path = require('path');
 describe('ButtonGenerator', function() {
 
   beforeEach(function() {
-    this.buttonGenerator = new ButtonGenerator();
+    this.buttonG = new ButtonGenerator();
     this.directoryPath = './dest';
     this.fileName = faker.system.fileName();
     this.source = faker.image.imageUrl();
     this.buffer = {};
-    spyOn(this.buttonGenerator, 'svg2png').and.returnValue(Promise.resolve(this.buffer));
-    spyOn(fs, 'readFile').and.returnValue(Promise.resolve(this.buffer));
+    spyOn(fs, 'mkdirs').and.returnValue(Promise.resolve());
     spyOn(fs, 'writeFile').and.returnValue(Promise.resolve());
   });
 
-  xdescribe('#generatePNG', function() {
+  describe('createFile', function() {
 
-    it('reads file, converts to png, and writes it', function(done) {
-      this.buttonGenerator._generatePNG(this.source, this.directoryPath, this.fileName)
-        .then(() => {
-          expect(fs.readFile).toHaveBeenCalledWith(this.source);
-          expect(this.buttonGenerator.svg2png).toHaveBeenCalledWith(this.buffer);
-          expect(fs.writeFile).toHaveBeenCalledWith(path.join(this.directoryPath, `${this.fileName}.png`),this.buffer);
-          done();
-        })
-        .catch(done.fail);
+    it('create a folder if not exist then write into a file ', function(done) {
+      let ext = faker.system.fileExt();
+      ButtonGenerator.createFile(this.buffer, ext).then(() => {
+        expect(fs.mkdirs).toHaveBeenCalledWith(this.buttonG.getOutputDirectory());
+        expect(fs.writeFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath(ext), this.buffer);
+        done();
+      }).catch(done.fail);
+
     });
+  });
+
+  describe('getOutputPath', function() {
+
+    it('return a path string', function() {
+      let path = ButtonGenerator.getOutputPath(faker.system.fileExt());
+      expect(path).toMatch('^(.+)\/([^/]+)$');
+    });
+
+    it('return a path string and finish by a file with extension given', function() {
+      let path = ButtonGenerator.getOutputPath('svg');
+      let pathsGroup = path.split('.');
+      expect(pathsGroup[pathsGroup.length - 1]).toBe('svg');
+    })
   });
 });
