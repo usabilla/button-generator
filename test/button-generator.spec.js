@@ -1,7 +1,6 @@
 const ButtonGenerator = require('../lib/button-generator');
 const fs = require('fs-promise');
 const faker = require('faker');
-const path = require('path');
 
 describe('ButtonGenerator', function() {
 
