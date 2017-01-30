@@ -6,9 +6,7 @@ describe('ButtonGenerator', function() {
 
   beforeEach(function() {
     this.buttonG = new ButtonGenerator();
-    this.directoryPath = './dest';
     this.fileName = faker.system.fileName();
-    this.source = faker.image.imageUrl();
     this.buffer = {};
     spyOn(fs, 'mkdirs').and.returnValue(Promise.resolve());
     spyOn(fs, 'writeFile').and.returnValue(Promise.resolve());
@@ -16,10 +14,10 @@ describe('ButtonGenerator', function() {
 
   describe('createFile', function() {
 
-    it('create a folder if not exist then write into a file ', function(done) {
-      let ext = faker.system.fileExt();
+    it('creates a folder if it does not exist then write into a file ', function(done) {
+      const ext = faker.system.fileExt();
       ButtonGenerator.createFile(this.buffer, ext).then(() => {
-        expect(fs.mkdirs).toHaveBeenCalledWith(this.buttonG.getOutputDirectory());
+        expect(fs.mkdirs).toHaveBeenCalledWith(ButtonGenerator.getOutputDirectory());
         expect(fs.writeFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath(ext), this.buffer);
         done();
       }).catch(done.fail);
@@ -29,14 +27,14 @@ describe('ButtonGenerator', function() {
 
   describe('getOutputPath', function() {
 
-    it('return a path string', function() {
-      let path = ButtonGenerator.getOutputPath(faker.system.fileExt());
+    it('returns a path which is a string', function() {
+      const path = ButtonGenerator.getOutputPath(faker.system.fileExt());
       expect(path).toMatch('^(.+)\/([^/]+)$');
     });
 
-    it('return a path string and finish by a file with extension given', function() {
-      let path = ButtonGenerator.getOutputPath('svg');
-      let pathsGroup = path.split('.');
+    it('returns a path that includes the correct extension', function() {
+      const path = ButtonGenerator.getOutputPath('svg');
+      const pathsGroup = path.split('.');
       expect(pathsGroup[pathsGroup.length - 1]).toBe('svg');
     })
   });
