@@ -1,34 +1,42 @@
 Button Generator
 ===
 
-This module permit to generate a button image (png format) based on parameters.
+This module generates a button image (png format) based on parameters.
 
 ##Setup
 ```
 yarn install
 ```
-
-## how to use it
-For generating a button 
-
+## Usage
+For generating a button we require these properties:
+ - A font CSS url - `options.fontCssUrl`
+ - A string for the font name - `options.fontName`
+ - A hexadecimal code for the background color of the button - `options.backgroundColor`
+ - A hexadecimal code for the text color of the button - `options.textColor`
+ - A number value for the border radius (px) - `option.borderRadius`
+ - A number value for the width of the button (px) - `options.width`
+ - A number value for the height of the button (px) - `options.height`
+ - A string for the content text of the button - `options.text`
+ 
+ Then the method `generate(options)` will generate a virtual dom tree buffer then a png image.
+ 
+## Example
 ``` 
-node index <fontURL> <backgroundColor> <textColor> <content> <hasSoftCorder> <width> <height>
+const options = {
+  fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+  fontName: 'Open Sans',
+  backgroundColor: '#000000',
+  textColor: '#fff',
+  borderRadius: 3,
+  width: 40,
+  height: 130,
+  text: 'Feedback'
+};
+const button = new ButtonGenerator();
+button.generate(options)
 ```
-
-with options, an list of parameters. Example :
-```
-options = {
-  fontUrl : '//fonts.googleapis.com/css?family=Open+Sans'
-  backgroundColor : '#4286f4',
-  textColor:'#000000',
-  content: 'Feedback',
-  hasSoftCorner : true
-  size : {
-      width: 40,
-      height: 130
-   }
-}
-```
+## Output
+The generate method will produce a png file in the `output` folder.
   
 
 

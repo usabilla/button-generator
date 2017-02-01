@@ -1,5 +1,4 @@
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
-const matchers = require('./matchers');
 
 // Custom reporter
 if (!global.wallaby) {
@@ -13,8 +12,3 @@ if (!global.wallaby) {
     }
   }));
 }
-
-// Custom Matchers
-beforeEach(function() {
-  jasmine.getEnv().addMatchers(matchers);
-});
