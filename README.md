@@ -1,7 +1,7 @@
 Button Generator
 ===
 
-This module generate a button image (png format) based on parameters.
+This module generates a button image (png format) based on parameters.
 
 ##Setup
 ```
