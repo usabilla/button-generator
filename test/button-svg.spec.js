@@ -7,7 +7,7 @@ describe('Button SVG', function() {
       fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
       fontName: 'Open Sans',
       backgroundColor: '#000000',
-      color: '#fff',
+      textColor: '#fff',
       borderRadius: 3,
       width: 40,
       height: 130,
