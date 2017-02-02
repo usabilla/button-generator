@@ -11,7 +11,8 @@ describe('Button SVG', function() {
       borderRadius: 3,
       width: 40,
       height: 130,
-      content: 'feedback'
+      text: 'feedback',
+      edge: 'left'
     };
     this.buttonSVG = new ButtonSVG(this.options);
   });

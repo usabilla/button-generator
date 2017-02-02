@@ -6,9 +6,20 @@ const faker = require('faker');
 describe('ButtonGenerator', function() {
 
   beforeEach(function() {
-    this.options = {};
+    this.options = {
+      fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+      fontName: 'Open Sans',
+      fontSize: 18,
+      backgroundColor: '#000000',
+      textColor: '#fff',
+      borderRadius: 3,
+      width: 40,
+      height: 130,
+      text: 'feedback',
+      edge: 'left'
+    };
     this.buttonG = new ButtonGenerator(this.options);
-    this.buffer = {};
+    this.buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
     spyOn(fs, 'mkdirs').and.returnValue(Promise.resolve());
     spyOn(fs, 'writeFile').and.returnValue(Promise.resolve());
   });
@@ -17,10 +28,22 @@ describe('ButtonGenerator', function() {
 
     beforeEach(function() {
       const toFile = jasmine.createSpy('toFile');
+      const sharpObj = {
+        toFile,
+        rotate: function() {
+          return this;
+        }
+      };
+      this.sharpObj = sharpObj;
+      ButtonGenerator.sharp = function() {
+        return sharpObj;
+      };
+      spyOn(ButtonGenerator, 'sharp').and.callThrough();
+      spyOn(sharpObj, 'rotate').and.callThrough();
       this.buttonSVG = new ButtonSVG(this.options);
       spyOn(this.buttonSVG, 'generate').and.returnValue(Promise.resolve());
       spyOn(ButtonSVG, 'stringify').and.returnValue('');
-      spyOn(ButtonGenerator, 'sharp').and.returnValue({toFile});
+
       this.buttonG.generate();
     });
 
@@ -30,7 +53,8 @@ describe('ButtonGenerator', function() {
 
     it('calls sharp module methods', function() {
       expect(ButtonGenerator.sharp).toHaveBeenCalled();
-      expect(ButtonGenerator.sharp().toFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath('png'));
+      expect(this.sharpObj.rotate).toHaveBeenCalledWith(this.buttonG.getOrientationAngle());
+      expect(this.sharpObj.toFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath('png'));
     });
   });
 
@@ -59,4 +83,31 @@ describe('ButtonGenerator', function() {
       expect(pathsGroup[pathsGroup.length - 1]).toBe('svg');
     })
   });
+
+  describe('::getOrientationAngle', function() {
+
+    it('returns 0 if orientation not found', function() {
+      const options = {
+        edge: 'labelNotFound'
+      };
+      const buttonGenerator = new ButtonGenerator(options);
+      expect(buttonGenerator.getOrientationAngle()).toEqual(0);
+    });
+
+    it('returns 270 if edge property is left', function() {
+      const options = {
+        edge: 'left'
+      };
+      const buttonGenerator = new ButtonGenerator(options);
+      expect(buttonGenerator.getOrientationAngle()).toEqual(270);
+    });
+
+    it('returns 0 if edge property is top', function() {
+      const options = {
+        edge: 'top'
+      };
+      const buttonGenerator = new ButtonGenerator(options);
+      expect(buttonGenerator.getOrientationAngle()).toEqual(0);
+    });
+  })
 });
