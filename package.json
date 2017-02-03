@@ -20,7 +20,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.12.1",
+    "eslint": "^3.15.0",
     "faker": "^3.1.0",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^3.1.0",
