@@ -60,6 +60,21 @@ describe('Button SVG', function() {
     })
   });
 
+  describe('#generateStyle', function() {
+
+    beforeEach(function() {
+      this.styleTree = this.buttonSVG.generateStyle();
+    });
+
+    it('returns virtual node object', function() {
+      expect(this.styleTree.type).toBe('VirtualNode');
+    });
+
+    it('returns virtual node with the first element is DEFS', function() {
+      expect(this.styleTree.tagName).toEqual('DEFS');
+    });
+  });
+
   describe('#generateBody', function() {
 
     beforeEach(function() {
@@ -92,38 +107,89 @@ describe('Button SVG', function() {
     it('retuns virtual node with two attributes : fill and d', function() {
       expect(this.rectangle.properties.fill).not.toBeNull();
       expect(this.rectangle.properties.d).not.toBeNull();
-
     })
   });
 
-  describe('::getTopRoundedRect', function() {
+  describe('::getRectangleBorder', function() {
 
     it('returns the correct value if radius is 10', function() {
-      const borderRadius10 = 10;
-      expect(ButtonSVG.getTopRoundedRect(0, 0, this.options.width, this.options.height, borderRadius10))
-        .toEqual('M0,0h120a10,10 0 0 1 10,10v30h-130v-30a10,10 0 0 1 10,-10z');
+      const borderRadius = 10;
+      const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
+        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, true)}`
+        + `${ButtonSVG.getArcTopleft(borderRadius)}`
+        + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
+        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, false)}`
+        + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
+        + `${ButtonSVG.getArcTopRight(borderRadius)}z`;
+
+      expect(ButtonSVG.getRectangleBorder(0, 0, this.options.width, this.options.height, borderRadius))
+        .toEqual(pathExpected);
     });
 
     it('returns the correct value if radius is 0', function() {
-      const borderRadius0 = 0;
-      expect(ButtonSVG.getTopRoundedRect(0, 0, this.options.width, this.options.height, borderRadius0))
-        .toEqual('M0,0h130a0,0 0 0 1 0,0v40h-130v-40a0,0 0 0 1 0,0z');
+      const borderRadius = 0;
+      const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
+        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, true)}`
+        + `${ButtonSVG.getArcTopleft(borderRadius)}`
+        + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
+        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, false)}`
+        + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
+        + `${ButtonSVG.getArcTopRight(borderRadius)}z`;
+
+      expect(ButtonSVG.getRectangleBorder(0, 0, this.options.width, this.options.height, borderRadius))
+        .toEqual(pathExpected);
     });
   });
 
-  describe('#generateStyle', function() {
+  describe('::getPosition', function() {
+    it('returns string which follows the model : Mx,y', function() {
+      expect(ButtonSVG.getPosition(1, 2)).toEqual('M1,2');
+    })
+  });
 
-    beforeEach(function() {
-      this.styleTree = this.buttonSVG.generateStyle();
+  describe('::getHorizontalLine', function() {
+    it('returns string which follows th emodel hx - Case border radius not null', function() {
+      expect(ButtonSVG.getHorizontalLine(100, 2, true)).toEqual('h98');
+      expect(ButtonSVG.getHorizontalLine(100, 2, false)).toEqual('h-100');
     });
 
-    it('returns virtual node object', function() {
-      expect(this.styleTree.type).toBe('VirtualNode');
+    it('returns string which follows the model hx - Case border radius is null', function() {
+      expect(ButtonSVG.getHorizontalLine(100, 0, true)).toEqual('h100');
+      expect(ButtonSVG.getHorizontalLine(100, 0, false)).toEqual('h-100');
+    })
+  });
+
+  describe('::getVerticalLine', function() {
+    it('returns string which follows the model vx - Case border radius not null', function() {
+      expect(ButtonSVG.getVerticalLine(40, 2)).toEqual('v42');
+      expect(ButtonSVG.getVerticalLine(-40, 2)).toEqual('v-38');
     });
 
-    it('returns virtual node with the first element is DEFS', function() {
-      expect(this.styleTree.tagName).toEqual('DEFS');
+    it('returns string which follows the model vx - Case border radius is null', function() {
+      expect(ButtonSVG.getVerticalLine(40, 0)).toEqual('v40');
+      expect(ButtonSVG.getVerticalLine(-40, 0)).toEqual('v-40');
+    })
+  });
+
+  describe('::getArcTopLeft', function() {
+    it('returns string which follows the model ax,x 0 0 1 x,x - Case border radius not null', function() {
+      expect(ButtonSVG.getArcTopleft(5)).toEqual('a5,5 0 0 1 5,5');
+    });
+
+    it('returns string which follows the model ax,x 0 0 1 x,x - Case border radius is null', function() {
+      expect(ButtonSVG.getArcTopleft(0)).toEqual('a0,0 0 0 1 0,0');
     });
   });
+
+  describe('::getArcTopRight', function() {
+    it('returns string which follows the model ax,x 0 0 1 x,-x - Case border radius not null', function() {
+      expect(ButtonSVG.getArcTopRight(5)).toEqual('a5,5 0 0 1 5,-5');
+    });
+
+    it('returns string which follows the model ax,x 0 0 1 x,-x - Case border radius is null', function() {
+      expect(ButtonSVG.getArcTopRight(0)).toEqual('a0,0 0 0 1 0,0');
+    });
+  });
+
 
 });
