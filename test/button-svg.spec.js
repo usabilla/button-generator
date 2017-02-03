@@ -9,8 +9,8 @@ describe('Button SVG', function() {
       backgroundColor: '#000000',
       textColor: '#fff',
       borderRadius: 3,
-      width: 40,
-      height: 130,
+      width: 130,
+      height: 40,
       content: 'feedback'
     };
     this.buttonSVG = new ButtonSVG(this.options);
@@ -75,13 +75,49 @@ describe('Button SVG', function() {
     });
   });
 
+  describe('#generateRectangle', function() {
+
+    beforeEach(function() {
+      this.rectangle = this.buttonSVG.generateRectangle();
+    });
+
+    it('returns virtual node object', function() {
+      expect(this.rectangle.type).toBe('VirtualNode');
+    });
+
+    it('returns virtual node with the first element is PATH', function() {
+      expect(this.rectangle.tagName).toEqual('PATH');
+    });
+
+    it('retuns virtual node with two attributes : fill and d', function() {
+      expect(this.rectangle.properties.fill).not.toBeNull();
+      expect(this.rectangle.properties.d).not.toBeNull();
+
+    })
+  });
+
+  describe('::getTopRoundedRect', function() {
+
+    it('returns the correct value if radius is 10', function() {
+      const borderRadius10 = 10;
+      expect(ButtonSVG.getTopRoundedRect(0, 0, this.options.width, this.options.height, borderRadius10))
+        .toEqual('M0,0h120a10,10 0 0 1 10,10v30h-130v-30a10,10 0 0 1 10,-10z');
+    });
+
+    it('returns the correct value if radius is 0', function() {
+      const borderRadius0 = 0;
+      expect(ButtonSVG.getTopRoundedRect(0, 0, this.options.width, this.options.height, borderRadius0))
+        .toEqual('M0,0h130a0,0 0 0 1 0,0v40h-130v-40a0,0 0 0 1 0,0z');
+    });
+  });
+
   describe('#generateStyle', function() {
 
     beforeEach(function() {
       this.styleTree = this.buttonSVG.generateStyle();
     });
 
-    it('return virtual node object', function() {
+    it('returns virtual node object', function() {
       expect(this.styleTree.type).toBe('VirtualNode');
     });
 
