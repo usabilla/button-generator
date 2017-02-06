@@ -115,28 +115,34 @@ describe('Button SVG', function() {
     it('returns the correct value if radius is 10', function() {
       const borderRadius = 10;
       const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
-        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, true)}`
+        + `${ButtonSVG.getHorizontalTopLine(this.options.width, borderRadius)}`
         + `${ButtonSVG.getArcTopleft(borderRadius)}`
         + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
-        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, false)}`
+        + `${ButtonSVG.getHorizontalBottomLine(this.options.width)}`
         + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
         + `${ButtonSVG.getArcTopRight(borderRadius)}z`;
 
-      expect(ButtonSVG.getRectangleBorder(0, 0, this.options.width, this.options.height, borderRadius))
+      const parameters = {
+        x: 0, y: 0, width: this.options.width, height: this.options.height, radius: borderRadius
+      };
+      expect(ButtonSVG.getRectangleBorder(parameters))
         .toEqual(pathExpected);
     });
 
     it('returns the correct value if radius is 0', function() {
       const borderRadius = 0;
       const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
-        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, true)}`
+        + `${ButtonSVG.getHorizontalTopLine(this.options.width, borderRadius)}`
         + `${ButtonSVG.getArcTopleft(borderRadius)}`
         + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
-        + `${ButtonSVG.getHorizontalLine(this.options.width, borderRadius, false)}`
+        + `${ButtonSVG.getHorizontalBottomLine(this.options.width)}`
         + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
         + `${ButtonSVG.getArcTopRight(borderRadius)}z`;
 
-      expect(ButtonSVG.getRectangleBorder(0, 0, this.options.width, this.options.height, borderRadius))
+      const parameters = {
+        x: 0, y: 0, width: this.options.width, height: this.options.height, radius: borderRadius
+      };
+      expect(ButtonSVG.getRectangleBorder(parameters))
         .toEqual(pathExpected);
     });
   });
@@ -149,13 +155,13 @@ describe('Button SVG', function() {
 
   describe('::getHorizontalLine', function() {
     it('returns string which follows th emodel hx - Case border radius not null', function() {
-      expect(ButtonSVG.getHorizontalLine(100, 2, true)).toEqual('h98');
-      expect(ButtonSVG.getHorizontalLine(100, 2, false)).toEqual('h-100');
+      expect(ButtonSVG.getHorizontalTopLine(100, 2)).toEqual('h98');
+      expect(ButtonSVG.getHorizontalBottomLine(100)).toEqual('h-100');
     });
 
     it('returns string which follows the model hx - Case border radius is null', function() {
-      expect(ButtonSVG.getHorizontalLine(100, 0, true)).toEqual('h100');
-      expect(ButtonSVG.getHorizontalLine(100, 0, false)).toEqual('h-100');
+      expect(ButtonSVG.getHorizontalTopLine(100, 0)).toEqual('h100');
+      expect(ButtonSVG.getHorizontalBottomLine(100)).toEqual('h-100');
     })
   });
 
