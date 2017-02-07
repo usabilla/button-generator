@@ -9,9 +9,10 @@ describe('Button SVG', function() {
       backgroundColor: '#000000',
       textColor: '#fff',
       borderRadius: 3,
-      width: 130,
-      height: 40,
-      content: 'feedback'
+      width: 40,
+      height: 130,
+      text: 'feedback',
+      edge: 'left'
     };
     this.buttonSVG = new ButtonSVG(this.options);
   });
