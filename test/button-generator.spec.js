@@ -89,9 +89,17 @@ describe('ButtonGenerator', function() {
       expect(buttonGenerator.getOrientationAngle()).toEqual(0);
     });
 
-    it('returns 270 if edge property is left', function() {
+    it('returns 90 if edge property is left', function() {
       const options = {
         edge: 'left'
+      };
+      const buttonGenerator = new ButtonGenerator(options);
+      expect(buttonGenerator.getOrientationAngle()).toEqual(90);
+    });
+
+    it('returns 270 if edge property is right', function() {
+      const options = {
+        edge: 'right'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(270);
@@ -100,6 +108,14 @@ describe('ButtonGenerator', function() {
     it('returns 0 if edge property is top', function() {
       const options = {
         edge: 'top'
+      };
+      const buttonGenerator = new ButtonGenerator(options);
+      expect(buttonGenerator.getOrientationAngle()).toEqual(0);
+    });
+
+    it('returns 0 if edge property is bottom', function() {
+      const options = {
+        edge: 'bottom'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(0);
