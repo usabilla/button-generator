@@ -32,10 +32,11 @@ const options = {
   borderRadius: 3,
   width: 40,
   height: 130,
-  text: 'Feedback'
+  text: 'Feedback',
+  edge: 'left'
 };
-const button = new ButtonGenerator();
-button.generate(options)
+const button = new ButtonGenerator(options);
+button.generate()
 ```
 ## Output
 The generate method will produce a png file in the `output` folder.
