@@ -6,6 +6,7 @@ describe('Button SVG', function() {
     this.options = {
       fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
       fontName: 'Open Sans',
+      fontSize: 18,
       backgroundColor: '#000000',
       textColor: '#fff',
       borderRadius: 3,
@@ -197,5 +198,22 @@ describe('Button SVG', function() {
     });
   });
 
+  describe('::verticalAlign', function() {
 
+    let fontSize;
+    let buttonHeight;
+    let expectedYPosition;
+
+    it('returns the y-position to center the text based on buttonHeight and fontSize', function() {
+      fontSize = 18;
+      buttonHeight = 40;
+      expectedYPosition = 26.75;
+      expect(ButtonSVG.verticalAlign(buttonHeight, fontSize)).toBe(expectedYPosition);
+
+      fontSize = 14;
+      buttonHeight = 60;
+      expectedYPosition = 35.25;
+      expect(ButtonSVG.verticalAlign(buttonHeight, fontSize)).toBe(expectedYPosition);
+    });
+  });
 });
