@@ -19,59 +19,55 @@ describe('ButtonGenerator', function() {
       edge: 'left'
     };
     this.buttonG = new ButtonGenerator(this.options);
-    this.buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
     spyOn(fs, 'mkdirs').and.returnValue(Promise.resolve());
     spyOn(fs, 'writeFile').and.returnValue(Promise.resolve());
+    const toFile = jasmine.createSpy('toFile');
+    const toBuffer = jasmine.createSpy('toBuffer');
+    this.sharpObj = {
+      toFile,
+      toBuffer,
+      rotate: function() {
+        return this;
+      }
+    };
+    ButtonGenerator.sharp = () => this.sharpObj;
+    spyOn(ButtonGenerator, 'sharp').and.callThrough();
+    spyOn(this.sharpObj, 'rotate').and.callThrough();
   });
 
   describe('#generate', function() {
-
     beforeEach(function() {
-      const toFile = jasmine.createSpy('toFile');
-      const sharpObj = {
-        toFile,
-        rotate: function() {
-          return this;
-        }
-      };
-      this.sharpObj = sharpObj;
-      ButtonGenerator.sharp = function() {
-        return sharpObj;
-      };
-      spyOn(ButtonGenerator, 'sharp').and.callThrough();
-      spyOn(sharpObj, 'rotate').and.callThrough();
       this.buttonSVG = new ButtonSVG(this.options);
       spyOn(this.buttonSVG, 'generate').and.returnValue(Promise.resolve());
       spyOn(ButtonSVG, 'stringify').and.returnValue('');
-
-      this.buttonG.generate();
     });
-
     it('calls stringify function', function() {
+      this.buttonG.generate();
       expect(ButtonSVG.stringify).toHaveBeenCalled();
     });
 
     it('calls sharp module methods', function() {
+      this.buttonG.generate();
       expect(ButtonGenerator.sharp).toHaveBeenCalled();
       expect(this.sharpObj.rotate).toHaveBeenCalledWith(this.buttonG.getOrientationAngle());
+    });
+  });
+
+  describe('#getBuffer', function() {
+    it('calls toBuffer', function() {
+      this.buttonG.getBuffer();
+      expect(this.sharpObj.toBuffer).toHaveBeenCalled();
+    });
+  });
+
+  describe('#getPng', function() {
+    it('calls toFile', function() {
+      this.buttonG.getPng();
       expect(this.sharpObj.toFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath('png'));
     });
   });
 
-  describe('::createFile', function() {
-
-    it('creates a folder if it does not exist then write into a file ', function(done) {
-      const ext = faker.system.fileExt();
-      ButtonGenerator.createFile(this.buffer, ext).then(() => {
-        expect(fs.mkdirs).toHaveBeenCalledWith(ButtonGenerator.OUPUT_DIRECTORY);
-        expect(fs.writeFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath(ext), this.buffer);
-        done();
-      }).catch(done.fail);
-    });
-  });
-
   describe('::getOutputPath', function() {
-
     it('returns a path which is a string', function() {
       const path = ButtonGenerator.getOutputPath(faker.system.fileExt());
       expect(path).toMatch('^(.+)\/([^/]+)$');
@@ -85,7 +81,6 @@ describe('ButtonGenerator', function() {
   });
 
   describe('::getOrientationAngle', function() {
-
     it('returns 0 if orientation not found', function() {
       const options = {
         edge: 'labelNotFound'
