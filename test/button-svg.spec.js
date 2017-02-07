@@ -216,4 +216,20 @@ describe('Button SVG', function() {
       expect(ButtonSVG.verticalAlign(buttonHeight, fontSize)).toBe(expectedYPosition);
     });
   });
+
+  describe('::convertFontSizeToHeight', function() {
+
+    let fontSize;
+    let textElementHeight;
+
+    it('returns the actual height of svg text element based on the fontSize', function() {
+      fontSize = 16;
+      textElementHeight = 12;
+      expect(ButtonSVG.convertFontSizeToHeight(fontSize)).toBe(textElementHeight);
+
+      fontSize = 24;
+      textElementHeight = 18;
+      expect(ButtonSVG.convertFontSizeToHeight(fontSize)).toBe(textElementHeight);
+    });
+  });
 });
