@@ -117,7 +117,7 @@ describe('Button SVG', function() {
       const borderRadius = 10;
       const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
         + `${ButtonSVG.getHorizontalTopLine(this.options.width, borderRadius)}`
-        + `${ButtonSVG.getArcTopleft(borderRadius)}`
+        + `${ButtonSVG.getArcTopLeft(borderRadius)}`
         + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
         + `${ButtonSVG.getHorizontalBottomLine(this.options.width)}`
         + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
@@ -134,7 +134,7 @@ describe('Button SVG', function() {
       const borderRadius = 0;
       const pathExpected = `${ButtonSVG.getPosition(0, 0)}`
         + `${ButtonSVG.getHorizontalTopLine(this.options.width, borderRadius)}`
-        + `${ButtonSVG.getArcTopleft(borderRadius)}`
+        + `${ButtonSVG.getArcTopLeft(borderRadius)}`
         + `${ButtonSVG.getVerticalLine(this.options.height, -borderRadius)}`
         + `${ButtonSVG.getHorizontalBottomLine(this.options.width)}`
         + `${ButtonSVG.getVerticalLine(-this.options.height, borderRadius)}`
@@ -180,11 +180,11 @@ describe('Button SVG', function() {
 
   describe('::getArcTopLeft', function() {
     it('returns string which follows the model ax,x 0 0 1 x,x - Case border radius not null', function() {
-      expect(ButtonSVG.getArcTopleft(5)).toEqual('a5,5 0 0 1 5,5');
+      expect(ButtonSVG.getArcTopLeft(5)).toEqual('a5,5 0 0 1 5,5');
     });
 
     it('returns string which follows the model ax,x 0 0 1 x,x - Case border radius is null', function() {
-      expect(ButtonSVG.getArcTopleft(0)).toEqual('a0,0 0 0 1 0,0');
+      expect(ButtonSVG.getArcTopLeft(0)).toEqual('a0,0 0 0 1 0,0');
     });
   });
 

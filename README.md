@@ -26,7 +26,7 @@ For generating a button we require these properties:
 const options = {
   fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
   fontName: 'Open Sans',
-  fontSize : 18
+  fontSize: 18,
   backgroundColor: '#000000',
   textColor: '#fff',
   borderRadius: 3,
