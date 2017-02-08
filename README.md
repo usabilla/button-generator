@@ -11,6 +11,7 @@ yarn install
 For generating a button we require these properties:
  - A font CSS url - `options.fontCssUrl`
  - A string for the font name - `options.fontName`
+ - A number value for the font size - `options.fontSize`
  - A hexadecimal code for the background color of the button - `options.backgroundColor`
  - A hexadecimal code for the text color of the button - `options.textColor`
  - A number value for the border radius (px) - `option.borderRadius`
@@ -25,15 +26,17 @@ For generating a button we require these properties:
 const options = {
   fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
   fontName: 'Open Sans',
+  fontSize: 18,
   backgroundColor: '#000000',
   textColor: '#fff',
   borderRadius: 3,
   width: 40,
   height: 130,
-  text: 'Feedback'
+  text: 'Feedback',
+  edge: 'left'
 };
-const button = new ButtonGenerator();
-button.generate(options)
+const button = new ButtonGenerator(options);
+button.generate()
 ```
 ## Output
 The generate method will produce a png file in the `output` folder.
