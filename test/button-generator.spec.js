@@ -65,6 +65,10 @@ describe('ButtonGenerator', function() {
       this.buttonG.getPng();
       expect(this.sharpObj.toFile).toHaveBeenCalledWith(ButtonGenerator.getOutputPath('png'));
     });
+
+    it('returns filepath', function() {
+      expect(this.buttonG.getPng()).toEqual(ButtonGenerator.getOutputPath('png'));
+    });
   });
 
   describe('::getOutputPath', function() {
