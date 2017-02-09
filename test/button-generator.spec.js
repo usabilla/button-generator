@@ -16,7 +16,7 @@ describe('ButtonGenerator', function() {
       width: 40,
       height: 130,
       text: 'feedback',
-      edge: 'left'
+      rotation: 'left'
     };
     this.buttonG = new ButtonGenerator(this.options);
     this.buffer = Buffer.from([0x62, 0x75, 0x66, 0x66, 0x65, 0x72]);
@@ -88,39 +88,39 @@ describe('ButtonGenerator', function() {
 
     it('returns 0 if orientation not found', function() {
       const options = {
-        edge: 'labelNotFound'
+        rotation: 'labelNotFound'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(0);
     });
 
-    it('returns 90 if edge property is left', function() {
+    it('returns 90 if rotation property is left', function() {
       const options = {
-        edge: 'left'
+        rotation: 'left'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(90);
     });
 
-    it('returns 270 if edge property is right', function() {
+    it('returns 270 if rotation property is right', function() {
       const options = {
-        edge: 'right'
+        rotation: 'right'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(270);
     });
 
-    it('returns 0 if edge property is top', function() {
+    it('returns 0 if rotation property is top', function() {
       const options = {
-        edge: 'top'
+        rotation: 'top'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(0);
     });
 
-    it('returns 0 if edge property is bottom', function() {
+    it('returns 0 if rotation property is bottom', function() {
       const options = {
-        edge: 'bottom'
+        rotation: 'bottom'
       };
       const buttonGenerator = new ButtonGenerator(options);
       expect(buttonGenerator.getOrientationAngle()).toEqual(0);

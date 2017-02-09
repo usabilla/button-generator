@@ -13,7 +13,7 @@ describe('Button SVG', function() {
       width: 40,
       height: 130,
       text: 'feedback',
-      edge: 'left'
+      rotation: 'left',
     };
     this.buttonSVG = new ButtonSVG(this.options);
   });
@@ -22,7 +22,7 @@ describe('Button SVG', function() {
     it('returns an object with width and height attributes', function() {
       expect(this.buttonSVG.getSizeOptions()).toEqual({
         width: this.options.width,
-        height: this.options.height
+        height: this.options.height,
       });
     });
   });
