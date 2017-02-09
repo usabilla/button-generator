@@ -18,8 +18,7 @@ For generating a button we require these properties:
  - A number value for the width of the button (px) - `options.width`
  - A number value for the height of the button (px) - `options.height`
  - A string for the content text of the button - `options.text`
- - A string for the placement position of the button. The available options are: right, left, top, bottom.
-   This places the button exactly at the middle of the screen, either right, left, top or bottom. - `options.rotation`
+ - A string for the placement position of the button. The available options are: right, left, top, bottom. - `options.rotation`
 
  The method `generate(options)` will generate a virtual dom tree buffer then a png image.
 
