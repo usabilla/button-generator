@@ -1,4 +1,5 @@
 const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
+const promiseMatchers = require('@pietvanzoen/jasmine-promise-matchers');
 
 // Custom reporter
 if (!global.wallaby) {
@@ -12,3 +13,7 @@ if (!global.wallaby) {
     }
   }));
 }
+
+beforeEach(function() {
+  promiseMatchers.install(jasmine);
+});
