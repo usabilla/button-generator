@@ -106,10 +106,31 @@ describe('Button SVG', function() {
       expect(this.rectangle.tagName).toEqual('PATH');
     });
 
-    it('retuns virtual node with two attributes : fill and d', function() {
+    it('returns virtual node with two attributes : fill and d', function() {
       expect(this.rectangle.properties.fill).not.toBeNull();
       expect(this.rectangle.properties.d).not.toBeNull();
     })
+  });
+
+  describe('#getTextProperties', function() {
+    it('returns a text properties object', function() {
+      const expected = {
+        'fill': '#fff',
+        'font-size': 18,
+        'y': 71.75,
+        'x': '50%',
+        'text-anchor': 'middle'
+      }
+      expect(this.buttonSVG.getTextProperties()).toEqual(expected);
+    });
+    it('returns an object with a transform property set to rotate() if edge is top', function() {
+      this.options.edge = 'top';
+      expect(this.buttonSVG.getTextProperties().transform).toMatch(/rotate/);
+    });
+    it('returns an object without a transform property if edge is not top', function() {
+      this.options.edge = 'left';
+      expect(this.buttonSVG.getTextProperties().transform).toBeUndefined();
+    });
   });
 
   describe('::getRectangleBorder', function() {
@@ -196,6 +217,17 @@ describe('Button SVG', function() {
 
     it('returns string which follows the model ax,x 0 0 1 x,-x - Case border radius is null', function() {
       expect(ButtonSVG.getArcTopRight(0)).toEqual('a0,0 0 0 1 0,0');
+    });
+  });
+
+  describe('::getInvertedRotation', function() {
+    it('returns a string with expected transform value', function() {
+      const buttonWidth = 130;
+      const buttonHeight = 40;
+      const expectedX = buttonWidth / 2;
+      const expectedY = buttonHeight / 2;
+      const expected = `rotate(180, ${expectedX}, ${expectedY})`;
+      expect(ButtonSVG.getInvertedTextRotation(buttonWidth, buttonHeight)).toBe(expected);
     });
   });
 
