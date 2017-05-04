@@ -5,6 +5,7 @@ describe('Button SVG', function() {
   beforeEach(function() {
     this.options = {
       fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+      fontFileUrl: 'http://www.amazon.com/foo.woff',
       fontName: 'Open Sans',
       fontSize: 18,
       backgroundColor: '#000000',
@@ -130,6 +131,26 @@ describe('Button SVG', function() {
     it('returns an object without a transform property if edge is not top', function() {
       this.options.edge = 'left';
       expect(this.buttonSVG.getTextProperties().transform).toBeUndefined();
+    });
+  });
+
+  describe('::generateFontEmbed', function() {
+    it('returns @import if a fontCssUrl exists', function() {
+      const expected = `@import url("${this.options.fontCssUrl}");`;
+      expect(ButtonSVG.generateFontEmbed(this.options)).toEqual(expected);
+    });
+    it('returns @font-face if a fontFileUrl exists', function() {
+      const expected = `@font-face {
+        font-family: "${this.options.fontName}";
+        src: url("${this.options.fontFileUrl}");
+      }`;
+      delete this.options.fontCssUrl;
+      expect(ButtonSVG.generateFontEmbed(this.options)).toEqual(expected);
+    });
+    it('returns @font-face if a fontFileUrl exists', function() {
+      delete this.options.fontCssUrl;
+      delete this.options.fontFileUrl;
+      expect(ButtonSVG.generateFontEmbed(this.options)).toEqual('');
     });
   });
 

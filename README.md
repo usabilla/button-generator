@@ -9,7 +9,7 @@ yarn install
 ```
 ## Usage
 For generating a button we require these properties:
- - A font CSS url - `options.fontCssUrl`
+ - A font CSS url - `options.fontCssUrl` OR a font file url - `options.fontFileUrl` (optional, will default to CSS url if both are defined)
  - A string for the font name - `options.fontName`
  - A number value for the font size - `options.fontSize`
  - A hexadecimal code for the background color of the button - `options.backgroundColor`
@@ -20,12 +20,13 @@ For generating a button we require these properties:
  - A string for the content text of the button - `options.text`
  - A string for the placement position of the button. The available options are: right, left, top, bottom. - `options.edge`
 
- The method `generate(options)` will generate a virtual dom tree buffer then a png image.
+ The method `generate(options)` will generate a virtual dom tree buffer.
 
 ## Example
 ```
 const options = {
   fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+  fontFileUrl: 'http://www.amazon.com/my-font.woff',
   fontName: 'Open Sans',
   fontSize: 18,
   backgroundColor: '#000000',
@@ -40,7 +41,7 @@ const button = new ButtonGenerator(options);
 button.generate()
 ```
 ## Output
-The generate method will produce a png file in the `output` folder.
+The generate method will generate a virtual dom tree buffer.
 
 
 
