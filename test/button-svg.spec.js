@@ -1,4 +1,5 @@
 const ButtonSVG = require('../lib/button-svg');
+const _ = require('lodash');
 
 describe('Button SVG', function() {
 
@@ -135,19 +136,49 @@ describe('Button SVG', function() {
   });
 
   describe('::generateFontEmbed', function() {
-    it('returns @import if a fontCssUrl exists', function() {
-      const expected = `@import url("${this.options.fontCssUrl}");`;
-      expect(ButtonSVG.generateFontEmbed(this.options)).toEqual(expected);
+    
+    it('returns @import if a fontCssUrl exists that includes the fontName', function() {
+      const options = _.merge(this.options, {
+        fontFileUrl: 'http://www.amazon.com/foo.woff',
+        fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+        fontName: 'Open Sans'
+      });
+      const expected = `@import url("${options.fontCssUrl}");`;
+      expect(ButtonSVG.generateFontEmbed(options)).toEqual(expected);
     });
-    it('returns @font-face if a fontFileUrl exists', function() {
+
+    it('returns empty string if a fontCssUrl exists that does not include the fontName', function() {
+      const options = _.merge(this.options, {
+        fontFileUrl: 'http://www.amazon.com/foo.woff',
+        fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+        fontName: 'OpenSans',
+      });
+      expect(ButtonSVG.generateFontEmbed(options)).toEqual('');
+    });
+    
+    it('returns @font-face if a fontFileUrl exists that includes the fontName', function() {
+      const options = _.merge(this.options, {
+        fontName: 'foo',
+        fontFileUrl: 'http://www.amazon.com/foo.woff',
+        fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+      });
       const expected = `@font-face {
-        font-family: "${this.options.fontName}";
-        src: url("${this.options.fontFileUrl}");
+        font-family: "${options.fontName}";
+        src: url("${options.fontFileUrl}");
       }`;
-      delete this.options.fontCssUrl;
-      expect(ButtonSVG.generateFontEmbed(this.options)).toEqual(expected);
+      expect(ButtonSVG.generateFontEmbed(options)).toEqual(expected);
     });
-    it('returns @font-face if a fontFileUrl exists', function() {
+
+    it('returns empty string if a fontFileUrl exists that does not include the fontName', function() {
+      const options = _.merge(this.options, {
+        fontFileUrl: 'http://www.amazon.com/foo.woff',
+        fontCssUrl: '//fonts.googleapis.com/css?family=Open+Sans',
+        fontName: 'bar',
+      });
+      expect(ButtonSVG.generateFontEmbed(options)).toEqual('');
+    });
+    
+    it('returns empty string if neither fontFileUrl or fontCssUrl exists', function() {
       delete this.options.fontCssUrl;
       delete this.options.fontFileUrl;
       expect(ButtonSVG.generateFontEmbed(this.options)).toEqual('');
