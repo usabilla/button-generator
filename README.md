@@ -3,7 +3,7 @@ Button Generator
 
 This module generates a button image (png format) based on parameters.
 
-##Setup
+## Setup
 ```
 yarn install
 ```
