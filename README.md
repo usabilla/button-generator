@@ -1,7 +1,7 @@
 Button Generator
 ===
 
-This module generates a button image (png format) based on parameters.
+This node module generates a buffer of a button png image based on a set of parameters. It is used in the [Usabilla Themes Publisher](https://github.com/usabilla/themes-publisher) to create feedback buttons.
 
 ## Setup
 ```
@@ -20,7 +20,7 @@ For generating a button we require these properties:
  - A string for the content text of the button - `options.text`
  - A string for the placement position of the button. The available options are: right, left, top, bottom. - `options.edge`
 
- The method `generate(options)` will generate a virtual dom tree buffer.
+ The method `generate(options)` will generate a png buffer.
 
 ## Example
 ```
@@ -38,10 +38,7 @@ const options = {
   edge: 'left'
 };
 const button = new ButtonGenerator(options);
-button.generate()
+button
+  .generate()
+  .then(buffer => console.log(buffer))
 ```
-## Output
-The generate method will generate a virtual dom tree buffer.
-
-
-
