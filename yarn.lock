@@ -977,9 +977,9 @@ jodid25519@^1.0.0:
   dependencies:
     jsbn "~0.1.0"
 
-"js-styleguide@git://github.com/usabilla/js-styleguide":
+"js-styleguide@git://github.com/usabilla/js-styleguide#v1.0.1":
   version "0.0.0-development"
-  resolved "git://github.com/usabilla/js-styleguide#0d768e4e7c108ce59e47dc3db8c0275fcbec08fc"
+  resolved "git://github.com/usabilla/js-styleguide#64d72c2595198c8aafd10549cb51b77ada00a402"
 
 js-tokens@^3.0.0:
   version "3.0.0"
