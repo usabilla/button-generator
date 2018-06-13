@@ -1,8 +1,8 @@
 {
   "name": "button-generator",
-  "version": "1.0.0",
-  "private": true,
-  "description": "",
+  "version": "1.0.4",
+  "private": false,
+  "description": "Button Generator ===",
   "main": "index.js",
   "author": "development@usabilla.com",
   "scripts": {
@@ -26,8 +26,20 @@
     "faker": "^3.1.0",
     "jasmine": "^2.5.2",
     "jasmine-spec-reporter": "^3.1.0",
-    "js-styleguide": "git://github.com/usabilla/js-styleguide",
+    "js-styleguide": "git://github.com/usabilla/js-styleguide#v1.0.1",
     "lodash": "^4.12.0",
     "watch": "^1.0.1"
-  }
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usabilla/button-generator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/usabilla/button-generator/issues"
+  },
+  "homepage": "https://github.com/usabilla/button-generator#readme"
 }
