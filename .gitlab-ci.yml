@@ -5,6 +5,7 @@ stages:
   - prepare
   - lint
   - test
+  - publish
 
 .retry: &retry
   retry:
@@ -16,7 +17,7 @@ stages:
       - unknown_failure
 
 .image: &image
-  image: node:8-jessie
+  image: registry.vox.dev/dockerhub/library/node:erbium
 
 yarn-install:
   <<: *retry
@@ -55,3 +56,13 @@ test:
     - branches
   script:
     - yarn test
+
+publish:
+  <<: *retry
+  <<: *image
+  stage: publish
+  only:
+    - master
+  script:
+    - yarn release
+    - yarn publish
