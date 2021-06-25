@@ -17,7 +17,7 @@ stages:
       - unknown_failure
 
 .image: &image
-  image: registry.vox.dev/dockerhub/library/node:erbium
+  image: registry.vox.dev/dockerhub/library/node:carbon
 
 yarn-install:
   <<: *retry
@@ -65,4 +65,3 @@ publish:
     - master
   script:
     - yarn release
-    - yarn publish
