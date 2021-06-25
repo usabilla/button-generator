@@ -1,0 +1,57 @@
+variables:
+  DOCKER_BUILDKIT: "1"
+
+stages:
+  - prepare
+  - lint
+  - test
+
+.retry: &retry
+  retry:
+    max: 2
+    when:
+      - api_failure
+      - runner_system_failure
+      - stuck_or_timeout_failure
+      - unknown_failure
+
+.image: &image
+  image: node:8-jessie
+
+yarn-install:
+  <<: *retry
+  <<: *image
+  stage: prepare
+  only:
+    - branches
+  before_script:
+    - echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+  script:
+    - yarn install --cache-folder=.yarn-cache --ignore-platform --non-interactive --prefer-offline
+  artifacts:
+    paths:
+      - node_modules
+  cache:
+    key: "$CI_PROJECT_NAME-dependencies"
+    policy: pull-push
+    paths:
+      - .yarn-cache
+      - node_modules
+
+lint:
+  <<: *retry
+  <<: *image
+  stage: lint
+  only:
+    - branches
+  script:
+    - yarn lint
+
+test:
+  <<: *retry
+  <<: *image
+  stage: test
+  only:
+    - branches
+  script:
+    - yarn test

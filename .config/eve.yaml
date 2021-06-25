@@ -1,0 +1,15 @@
+version: 1
+team: collect
+
+mirrors:
+   gitlab:
+     group: usabilla/dev
+     name: button-generator
+
+plugins:
+  approve-dependabot-prs:
+    enabled: true
+  merge-dependabot-prs:
+    enabled: true
+    dependencies:
+      all: patch
