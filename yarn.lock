@@ -2816,7 +2816,7 @@ safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.2.tgz#991ec69d296e0313747d59bdfd2b745c35f8828d"
   integrity sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==
 
-semantic-release@^10.0.4:
+semantic-release@^10.0.1:
   version "10.0.1"
   resolved "https://registry.yarnpkg.com/semantic-release/-/semantic-release-10.0.1.tgz#10d4658a0f0fe5098a99fe246664bde3f516ca2d"
   integrity sha512-VNJ/0Q2Ao8kW2Pku3WYpt6BuKt3ovDlJQCfwUVv03OzTaj88sIyN3gU+Zcrfb3tfCPjzTNdU9p6OhBN8d3itow==
