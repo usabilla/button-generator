@@ -1,6 +1,6 @@
 {
   "name": "button-generator",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "private": false,
   "description": "Button Generator ===",
   "main": "index.js",
@@ -10,8 +10,8 @@
     "test:watch": "watch 'npm test' ./lib ./test",
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
-    "release": "semantic-release && npm publish",
-    "start": "node ."
+    "start": "node .",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "fs-promise": "^2.0.0",
@@ -35,14 +35,18 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.com"
   },
-  "release": "semantic-release",
+  "release": {
+    "verifyConditions": [
+      "@semantic-release/github"
+    ]
+  },
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:usabilla/button-generator.git"
+    "url": "https://github.com/usabilla/button-generator.git"
   },
   "bugs": {
     "url": "https://github.com/usabilla/button-generator/issues"

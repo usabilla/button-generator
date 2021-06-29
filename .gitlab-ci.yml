@@ -62,6 +62,9 @@ publish:
   <<: *image
   stage: publish
   only:
-    - master
+    - branches
   script:
-    - yarn release
+    - yarn semantic-release
+  artifacts:
+    paths:
+      - package.json
