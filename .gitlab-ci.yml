@@ -65,6 +65,3 @@ publish:
     - branches
   script:
     - yarn semantic-release
-  artifacts:
-    paths:
-      - package.json

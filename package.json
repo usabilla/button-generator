@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "npm run lint -- --fix",
     "start": "node .",
-    "semantic-release": "semantic-release"
+    "semantic-release": "semantic-release && npm publish"
   },
   "dependencies": {
     "fs-promise": "^2.0.0",
@@ -35,18 +35,14 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.com"
   },
-  "release": {
-    "verifyConditions": [
-      "@semantic-release/github"
-    ]
-  },
+  "release": "semantic-release",
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/usabilla/button-generator.git"
+    "url": "github:usabilla/button-generator"
   },
   "bugs": {
     "url": "https://github.com/usabilla/button-generator/issues"
