@@ -7,3 +7,6 @@ Reviewers: @
 
 ## Changelog:
 -
+
+## Reminders:
+- [ ] updated the package.json's version (for the release)
